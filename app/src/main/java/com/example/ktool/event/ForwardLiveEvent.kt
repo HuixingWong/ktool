@@ -15,11 +15,12 @@ class ForwardLiveEvent<T>(liveData: LiveData<T>) : MutableLiveData<T>() {
 
     init {
         val outputLiveData = MediatorLiveData<T>()
+        pendingMap = HashMap()
         outputLiveData.addSource(liveData) { currentValue ->
+            pendingMap.forEach { pendingMap[it.key] = true }
             outputLiveData.value = currentValue
         }
         liveDataToObserve = outputLiveData
-        pendingMap = HashMap()
     }
 
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
@@ -41,8 +42,8 @@ class ForwardLiveEvent<T>(liveData: LiveData<T>) : MutableLiveData<T>() {
     /**
      * 如何修改传入的livedata的setvalue方法
      */
-    override fun setValue(t: T?) {
-        pendingMap.forEach { pendingMap[it.key] = true }
-        super.setValue(t)
-    }
+//    override fun setValue(t: T?) {
+//        pendingMap.forEach { pendingMap[it.key] = true }
+//        super.setValue(t)
+//    }
 }
