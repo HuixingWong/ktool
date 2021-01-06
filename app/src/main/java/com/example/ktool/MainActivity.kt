@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.ktool.databinding.ActivityMainBinding
 import com.example.ktool.delegate.contentView
+import com.example.ktool.test.testCombine
+import com.example.ktool.test.testEntrance
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             bird = Bird("🐧")
         }
+        testEntrance(this)
     }
 }
 data class Bird (var name: String)
