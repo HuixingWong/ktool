@@ -4,6 +4,7 @@ import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.example.ktool.Bird
+import com.example.ktool.coroutine.SingleRunner
 import com.example.ktool.event.ForwardLiveEvent
 import com.example.ktool.livedata.combineWith
 import combineTuple
@@ -11,6 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.concurrent.atomic.AtomicInteger
+import kotlin.random.Random
 
 val bird1 = MutableLiveData<Bird>()
 
@@ -23,7 +26,27 @@ val title = bird1.combineWith(bird2) { bird1, bird2 ->
 
 fun testEntrance(activity: AppCompatActivity) {
 //    testForward(activity)
-    testHash()
+//    testHash()
+    testRunner()
+}
+
+val singleRunner = SingleRunner()
+var count = AtomicInteger(0)
+val random = Random
+fun testRunner() {
+    GlobalScope.launch {
+        singleRunner.afterPrevious {
+            val random = random.nextBoolean()
+            if (random){
+                count.incrementAndGet()
+                delay(2000)
+            } else {
+                count.incrementAndGet()
+                delay(500)
+            }
+            print("打印"+ count.get())
+        }
+    }
 }
 
 fun testCombine() {
