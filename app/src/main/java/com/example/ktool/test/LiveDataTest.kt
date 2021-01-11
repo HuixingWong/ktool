@@ -22,7 +22,8 @@ val title = bird1.combineWith(bird2) { bird1, bird2 ->
 
 
 fun testEntrance(activity: AppCompatActivity) {
-    testForward(activity)
+//    testForward(activity)
+    testHash()
 }
 
 fun testCombine() {
