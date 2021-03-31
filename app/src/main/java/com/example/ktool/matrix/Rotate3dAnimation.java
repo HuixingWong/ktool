@@ -46,13 +46,13 @@ public class Rotate3dAnimation extends Animation {
     }
 
     @Override
-    protected void applyTransformation(float interpolatedTime, Transformation t) {
+    protected void applyTransformation(float interpolatedTime, Transformation transForm) {
         final float fromDegrees = mFromDegrees;
         float degrees = fromDegrees + ((mToDegrees - fromDegrees) * interpolatedTime);
         final float centerX = mCenterX;
         final float centerY = mCenterY;
         final Camera camera = mCamera;
-        final Matrix matrix = t.getMatrix();
+        final Matrix matrix = transForm.getMatrix();
         camera.save();
 
         // 调节深度

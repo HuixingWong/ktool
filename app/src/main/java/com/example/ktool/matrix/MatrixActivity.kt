@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.ktool.databinding.ActivityMatrixBinding
 import com.example.ktool.matrix.flip.FlipShareView
 import com.example.ktool.matrix.flip.ShareItem
+import kotlin.math.roundToInt
 
 /**
  * https://www.gcssloop.com/customview/matrix-3d-camera
@@ -25,6 +26,24 @@ class MatrixActivity : AppCompatActivity() {
     private fun init() {
         binding.matrix.setOnClickListener { v ->
             rotate(v)
+            initRound()
+        }
+    }
+
+    private fun initRound() {
+        val dWidth = binding.androidImgMatrix.drawable.intrinsicWidth
+        val dHeight = binding.androidImgMatrix.drawable.intrinsicHeight
+
+        val vWidth = binding.androidImgMatrix.measuredWidth
+        val vHeight = binding.androidImgMatrix.measuredHeight
+        binding.androidImgMatrix.apply {
+            matrix.apply {
+                setTranslate(
+                    ((vWidth - dWidth) * 0.5f).roundToInt().toFloat(),
+                    ((vHeight - dHeight) * 0.5f).roundToInt().toFloat()
+                )
+                setScale(2f,2f)
+            }
         }
     }
 
@@ -38,14 +57,16 @@ class MatrixActivity : AppCompatActivity() {
 
         //括号内参数分别为（上下文，开始角度，结束角度，x轴中心点，y轴中心点，深度，是否扭曲）
         val rotation =
-            Rotate3dAnimation(this, 0f, 180f, centerX, centerY, 0f, true)
+            Rotate3dAnimation(this, 0f,
+                360f, centerX, centerY, 0f, true)
 
         rotation.duration = 3000 //设置动画时长
 
-        rotation.fillAfter = true //保持旋转后效果
+//        rotation.fillAfter = true //保持旋转后效果
+
+        rotation.fillBefore = true
 
         rotation.interpolator = LinearInterpolator() //设置插值器
-
         v.startAnimation(rotation)
     }
 
