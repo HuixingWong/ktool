@@ -10,10 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ktool">
         <activity
-            android:name=".matrix.MatrixActivity"
-            android:exported="true">
+            android:name=".test.TestFpsActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".matrix.MatrixActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".stack.ThirdActivity"
             android:exported="true" />
@@ -22,15 +29,9 @@
             android:exported="true" />
         <activity
             android:name=".stack.TopActivity"
-            android:exported="true">
+            android:exported="true"></activity>
+        <activity android:name=".MainActivity">
 
-        </activity>
-        <activity android:name=".MainActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

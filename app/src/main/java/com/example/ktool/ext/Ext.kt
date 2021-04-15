@@ -1,6 +1,7 @@
 package com.example.ktool.ext
 
 import android.content.res.Resources
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 
@@ -20,4 +21,8 @@ fun View.isVisible(visible: Boolean) = run {
     } else {
         View.GONE
     }
+}
+
+fun log(message: String) {
+    Log.e("😂😂😂", message)
 }
