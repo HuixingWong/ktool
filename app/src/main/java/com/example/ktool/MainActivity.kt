@@ -12,6 +12,10 @@ class MainActivity : AppCompatActivity(),CoroutineScope {
 
     private val binding: ActivityMainBinding by contentView(R.layout.activity_main)
 
+    protected fun finalize() {
+        println("finalize😂😂😂")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.apply {
