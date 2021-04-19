@@ -23,6 +23,6 @@ fun View.isVisible(visible: Boolean) = run {
     }
 }
 
-fun log(message: String) {
-    Log.e("😂😂😂", message)
+fun log(message: Any?) {
+    Log.e("😂😂😂", message.toString())
 }
