@@ -20,10 +20,10 @@ inline fun create(
 
 inline fun <reified T : FlexDecoration.Builder> create(
     context: Context,
-    create: FlexDecoration.Builder.() -> Unit
+    create: T.(t: T) -> Unit
 ): T {
-    val builder = T::class.java.constructors.get(0).newInstance(context) as FlexDecoration.Builder
-    builder.create()
+    val builder = T::class.java.constructors.get(0).newInstance(context) as T
+    builder.create(builder)
     return builder.build() as T
 }
 
