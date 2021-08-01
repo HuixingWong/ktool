@@ -24,7 +24,7 @@ abstract class FlexDecoration constructor(
     }
 
     protected var dividerType = DividerType.DRAWABLE
-    lateinit var visibilityProvider: VisibilityProvider
+    var visibilityProvider: VisibilityProvider
     protected var paintProvider: PaintProvider? = null
     protected var colorProvider: ColorProvider? = null
     protected var drawableProvider: DrawableProvider? = null
@@ -73,7 +73,7 @@ abstract class FlexDecoration constructor(
 
     private fun setSizeProvider(builder: Builder) = apply {
         sizeProvider = builder.sizeProvider ?: object : SizeProvider {
-            override fun sizeProvider(position: Int, parent: RecyclerView): Int {
+            override fun dividerSize(position: Int, parent: RecyclerView): Int {
                 return DEFAULT_SIZE
             }
         }
@@ -113,7 +113,7 @@ abstract class FlexDecoration constructor(
                     DividerType.COLOR -> {
                         paint?.apply {
                             setColor(colorProvider!!.dividerColor(groupIndex, parent))
-                            strokeWidth = sizeProvider!!.sizeProvider(groupIndex, parent).toFloat()
+                            strokeWidth = sizeProvider!!.dividerSize(groupIndex, parent).toFloat()
                             drawLine(bounds, c)
                         }
                     }
@@ -156,7 +156,7 @@ abstract class FlexDecoration constructor(
 
     abstract fun setItemoffset(outRect: Rect, position: Int, parent: RecyclerView)
 
-    class Builder constructor(
+    open class Builder constructor(
         val context: Context
     ) {
         var paintProvider: PaintProvider? = null
@@ -209,7 +209,7 @@ abstract class FlexDecoration constructor(
         fun sizeRes(@DimenRes id: Int) = size(context.resources.getDimensionPixelSize(id))
 
         fun size(size: Int) = sizeProvider(object : SizeProvider {
-            override fun sizeProvider(position: Int, parent: RecyclerView): Int {
+            override fun dividerSize(position: Int, parent: RecyclerView): Int {
                 return size
             }
         })
@@ -249,7 +249,7 @@ abstract class FlexDecoration constructor(
     }
 
     interface SizeProvider {
-        fun sizeProvider(position: Int, parent: RecyclerView): Int
+        fun dividerSize(position: Int, parent: RecyclerView): Int
     }
 }
 
