@@ -6,7 +6,6 @@ import android.view.View
 import androidx.annotation.DimenRes
 import androidx.recyclerview.widget.RecyclerView
 
-import androidx.core.view.ViewCompat
 import android.graphics.drawable.Drawable
 import java.lang.RuntimeException
 
@@ -23,8 +22,8 @@ class VDivider constructor(
 
     override fun getDividerBound(position: Int, parent: RecyclerView, child: View): Rect {
         val bounds = Rect(0, 0, 0, 0)
-        val transitionX = ViewCompat.getTranslationX(child).toInt()
-        val transitionY = ViewCompat.getTranslationY(child).toInt()
+        val transitionX = child.translationX.toInt()
+        val transitionY = child.translationY.toInt()
         val params = child.layoutParams as RecyclerView.LayoutParams
         bounds.top = parent.paddingTop +
                 marginProvider.dividerTopMargin(position, parent) + transitionY
