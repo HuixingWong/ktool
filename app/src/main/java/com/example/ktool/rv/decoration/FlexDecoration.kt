@@ -156,7 +156,7 @@ abstract class FlexDecoration constructor(
 
     abstract fun setItemoffset(outRect: Rect, position: Int, parent: RecyclerView)
 
-    open class Builder constructor(
+    abstract class Builder constructor(
         val context: Context
     ) {
         var paintProvider: PaintProvider? = null
@@ -229,6 +229,8 @@ abstract class FlexDecoration constructor(
         fun positionInsideItem(positionInsideItem: Boolean) = apply {
             this.positionInsideItem = positionInsideItem
         }
+
+        abstract fun build(): FlexDecoration
 
     }
 

@@ -9,6 +9,23 @@ import androidx.recyclerview.widget.RecyclerView
 import android.graphics.drawable.Drawable
 import java.lang.RuntimeException
 
+inline fun create(
+    context: Context,
+    create: VDivider.Builder.() -> Unit
+): VDivider {
+    val builder = VDivider.Builder(context)
+    builder.create()
+    return builder.build() as VDivider
+}
+
+inline fun <reified T : FlexDecoration.Builder> create(
+    context: Context,
+    create: FlexDecoration.Builder.() -> Unit
+): T {
+    val builder = T::class.java.constructors.get(0).newInstance(context) as FlexDecoration.Builder
+    builder.create()
+    return builder.build() as T
+}
 
 class VDivider constructor(
     builder: Builder
@@ -130,10 +147,7 @@ class VDivider constructor(
             marginProvider = provider
         }
 
-        fun build() = run {
-            VDivider(this)
-        }
-
+        override fun build(): FlexDecoration = VDivider(this)
     }
 
 }
